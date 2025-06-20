@@ -2,7 +2,7 @@
 
 **Laravel Greenter** es un paquete para emitir **comprobantes electrónicos** desde Laravel utilizando [Greenter](https://github.com/thegreenter/greenter). Permite:
 
-* Firmar comprobantes digitalmente
+* Firmar comprobantes digitalmente con **SHA256** (actualizado desde SHA1)
 * Enviarlos a SUNAT (SEE o API REST)
 * Generar su representación impresa en PDF (HTML y PDF)
 
@@ -15,6 +15,7 @@
 * [⚙️ Configuración Inicial](#️-configuración-inicial)
   * [🏢 Datos de la Empresa Emisora](#-datos-de-la-empresa-emisora)
   * [🛠️ Cambiar a Producción](#️-cambiar-a-producción)
+  * [🔐 Configuración de Firma Digital](#-configuración-de-firma-digital)
 * [🧰 Uso Básico](#-uso-básico)
   * [🧾 Emisión de Comprobante Electrónico](#-emisión-de-comprobante-electrónico)
   * [🔁 Emisión Dinámica para Múltiples Empresas](#-emisión-dinámica-para-múltiples-empresas)
@@ -96,6 +97,16 @@ Cuando estés listo para pasar a producción, edita el archivo `config/greenter.
         'client_secret' => '...',
     ],
 ],
+```
+
+### 🔐 Configuración de Firma Digital
+
+**Actualización importante:** Este paquete ahora utiliza **SHA256** por defecto para la firma digital, cumpliendo con los estándares de seguridad actuales. La configuración se puede personalizar en el archivo `.env`:
+
+```env
+# Configuración de firma digital (SHA256 por defecto)
+GREENTER_DIGEST_METHOD=http://www.w3.org/2001/04/xmlenc#sha256
+GREENTER_SIGNATURE_METHOD=http://www.w3.org/2001/04/xmldsig-more#rsa-sha256
 ```
 
 > ⚠️ **Importante:** Nunca subas tus certificados o credenciales a tu repositorio. Usa variables de entorno.
@@ -318,6 +329,7 @@ GreenterReport::generatePdf($document);
 * Nunca subas archivos sensibles al repositorio
 * Protege rutas usando `storage_path()` o `config_path()`
 * Valida los datos antes de emitir comprobantes
+* **Nuevo:** El paquete ahora utiliza SHA256 por defecto para mayor seguridad
 
 ## 📄 Licencia
 

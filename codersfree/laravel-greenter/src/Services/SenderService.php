@@ -40,6 +40,11 @@ class SenderService
 
         $signer = new SignedXml();
         $signer->setCertificate(file_get_contents($certPath));
+        
+        // Configurar SHA256 para la firma
+        $signer->setDigestMethod('http://www.w3.org/2001/04/xmlenc#sha256');
+        $signer->setSignatureMethod('http://www.w3.org/2001/04/xmldsig-more#rsa-sha256');
+        
         $xmlSigned = $signer->signXml($xml);
 
         return new XmlSigned($type, $document, $xmlSigned);
