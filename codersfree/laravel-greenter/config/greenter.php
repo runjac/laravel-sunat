@@ -52,6 +52,12 @@ return [
         ],
     ],
 
+    // Configuración de firma digital
+    'signature' => [
+        'digest_method' => env('GREENTER_DIGEST_METHOD', 'http://www.w3.org/2001/04/xmlenc#sha256'),
+        'signature_method' => env('GREENTER_SIGNATURE_METHOD', 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256'),
+    ],
+
     'report' => [
         'params' => [
             'system' => [

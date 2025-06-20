@@ -55,6 +55,10 @@ class ApiBuilder implements SenderInterface
             file_get_contents($company['certificate'])
         );
 
+        // Configurar SHA256 para la firma en API (guías de remisión)
+        $api->getXmlSigner()->setDigestMethod('http://www.w3.org/2001/04/xmlenc#sha256');
+        $api->getXmlSigner()->setSignatureMethod('http://www.w3.org/2001/04/xmldsig-more#rsa-sha256');
+
         return $api;
     }
 }

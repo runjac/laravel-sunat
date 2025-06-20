@@ -36,6 +36,10 @@ class SeeBuilder implements SenderInterface
             $company['clave_sol']['password']
         );
 
+        // Configurar SHA256 para la firma
+        $see->getXmlSigner()->setDigestMethod('http://www.w3.org/2001/04/xmlenc#sha256');
+        $see->getXmlSigner()->setSignatureMethod('http://www.w3.org/2001/04/xmldsig-more#rsa-sha256');
+
         return $see;
     }
 
